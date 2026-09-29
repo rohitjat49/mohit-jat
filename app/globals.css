@@ -1,26 +1,436 @@
+@import url('https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600&family=Playfair+Display:ital,wght@0,400;0,500;0,600;1,400;1,500&display=swap');
+
 @import "tailwindcss";
 
 :root {
-  --background: #ffffff;
-  --foreground: #171717;
+  --background: #0a0a0a;
+  --foreground: #f4f1e9;
+  --muted: #9c9991;
+  --accent: #c7a66a;
+  --light: #f3f0e8;
+  --dark-text: #151515;
+
+  --border-dark: rgba(255, 255, 255, 0.12);
+  --border-light: rgba(0, 0, 0, 0.12);
 }
 
-@theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
+* {
+  box-sizing: border-box;
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
+html {
+  scroll-behavior: smooth;
 }
 
 body {
+  margin: 0;
+  padding: 0;
   background: var(--background);
   color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+  font-family: "DM Sans", sans-serif;
+  overflow-x: hidden;
+}
+
+::selection {
+  background: var(--accent);
+  color: #0a0a0a;
+}
+
+a {
+  color: inherit;
+  text-decoration: none;
+}
+
+button,
+input,
+textarea {
+  font: inherit;
+}
+
+button {
+  cursor: pointer;
+}
+
+img {
+  max-width: 100%;
+  display: block;
+}
+
+/* ================================
+   TYPOGRAPHY
+================================ */
+
+.font-display {
+  font-family: "Playfair Display", serif;
+}
+
+.display-title {
+  font-family: "Playfair Display", serif;
+  font-size: clamp(4rem, 10vw, 11rem);
+  line-height: 0.86;
+  letter-spacing: -0.055em;
+  font-weight: 400;
+}
+
+.section-title {
+  font-family: "Playfair Display", serif;
+  font-size: clamp(3rem, 7vw, 7rem);
+  line-height: 0.9;
+  letter-spacing: -0.045em;
+  font-weight: 400;
+}
+
+.eyebrow {
+  font-size: 11px;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--muted);
+}
+
+/* ================================
+   CONTAINER
+================================ */
+
+.container {
+  width: min(1400px, calc(100% - 48px));
+  margin: 0 auto;
+}
+
+/* ================================
+   SCROLLBAR
+================================ */
+
+::-webkit-scrollbar {
+  width: 7px;
+}
+
+::-webkit-scrollbar-track {
+  background: #0a0a0a;
+}
+
+::-webkit-scrollbar-thumb {
+  background: #393939;
+  border-radius: 999px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: #666;
+}
+
+/* ================================
+   CUSTOM CURSOR
+================================ */
+
+@media (pointer: fine) {
+  body {
+    cursor: default;
+  }
+}
+
+/* ================================
+   RICH TEXT EDITOR
+================================ */
+
+.rich-editor .ProseMirror {
+  min-height: 420px;
+  outline: none;
+  color: #f5f5f5;
+}
+
+.rich-editor .ProseMirror p {
+  margin: 0 0 1rem;
+}
+
+.rich-editor .ProseMirror h2 {
+  margin: 2rem 0 1rem;
+  font-family: "Playfair Display", serif;
+  font-size: 1.75rem;
+  line-height: 1.2;
+  font-weight: 600;
+  color: #ffffff;
+}
+
+.rich-editor .ProseMirror strong {
+  font-weight: 700;
+  color: #ffffff;
+}
+
+.rich-editor .ProseMirror em {
+  font-style: italic;
+}
+
+.rich-editor .ProseMirror ul {
+  margin: 1rem 0;
+  padding-left: 1.5rem;
+  list-style-type: disc;
+}
+
+.rich-editor .ProseMirror ol {
+  margin: 1rem 0;
+  padding-left: 1.5rem;
+  list-style-type: decimal;
+}
+
+.rich-editor .ProseMirror li {
+  margin: 0.35rem 0;
+}
+
+.rich-editor .ProseMirror blockquote {
+  margin: 1.5rem 0;
+  border-left: 2px solid #c7a66a;
+  padding-left: 1rem;
+  color: rgba(255, 255, 255, 0.55);
+  font-style: italic;
+}
+
+.rich-editor .ProseMirror a {
+  color: #c7a66a;
+  text-decoration: underline;
+  text-underline-offset: 3px;
+}
+
+.rich-editor .ProseMirror p.is-editor-empty:first-child::before {
+  color: rgba(255, 255, 255, 0.2);
+  content: attr(data-placeholder);
+  float: left;
+  height: 0;
+  pointer-events: none;
+}
+
+/* ================================
+   PUBLIC ARTICLE CONTENT
+================================ */
+
+.article-content {
+  max-width: 760px;
+  color: rgba(21, 21, 21, 0.68);
+  font-size: 1.05rem;
+  line-height: 2;
+  letter-spacing: -0.005em;
+}
+
+/* Paragraph */
+
+.article-content p {
+  margin: 0 0 1.7rem;
+}
+
+/* First paragraph */
+
+.article-content > p:first-child {
+  color: rgba(21, 21, 21, 0.78);
+  font-size: 1.12rem;
+  line-height: 1.9;
+}
+
+/* Strong */
+
+.article-content strong {
+  color: #151515;
+  font-weight: 700;
+}
+
+/* Italic */
+
+.article-content em {
+  font-style: italic;
+}
+
+/* Headings */
+
+.article-content h2 {
+  margin-top: 4rem;
+  margin-bottom: 1.25rem;
+  font-family: "Playfair Display", serif;
+  font-size: 2.15rem;
+  line-height: 1.15;
+  letter-spacing: -0.025em;
+  font-weight: 500;
+  color: #151515;
+}
+
+.article-content h3 {
+  margin-top: 3rem;
+  margin-bottom: 1rem;
+  font-family: "Playfair Display", serif;
+  font-size: 1.65rem;
+  line-height: 1.2;
+  letter-spacing: -0.02em;
+  font-weight: 500;
+  color: #151515;
+}
+
+/* Lists */
+
+.article-content ul {
+  margin: 1.75rem 0;
+  padding-left: 1.5rem;
+  list-style: disc;
+}
+
+.article-content ol {
+  margin: 1.75rem 0;
+  padding-left: 1.5rem;
+  list-style: decimal;
+}
+
+.article-content li {
+  margin-bottom: 0.65rem;
+  padding-left: 0.25rem;
+}
+
+.article-content li::marker {
+  color: #967746;
+}
+
+/* Blockquote */
+
+.article-content blockquote {
+  position: relative;
+  margin: 2.75rem 0;
+  border-left: 3px solid #c7a66a;
+  padding: 0.5rem 0 0.5rem 1.5rem;
+  color: rgba(21, 21, 21, 0.58);
+  font-family: "Playfair Display", serif;
+  font-size: 1.3rem;
+  line-height: 1.65;
+  font-style: italic;
+}
+
+/* Links */
+
+.article-content a {
+  color: #967746;
+  text-decoration: underline;
+  text-decoration-thickness: 1px;
+  text-underline-offset: 4px;
+  transition:
+    color 0.3s ease,
+    text-decoration-color 0.3s ease;
+}
+
+.article-content a:hover {
+  color: #151515;
+}
+
+/* Horizontal line */
+
+.article-content hr {
+  margin: 3.5rem 0;
+  border: 0;
+  border-top: 1px solid rgba(0, 0, 0, 0.12);
+}
+
+/* Images inside article */
+
+.article-content img {
+  width: 100%;
+  height: auto;
+  margin: 2.75rem 0;
+  border-radius: 2px;
+  object-fit: cover;
+}
+
+/* Captions */
+
+.article-content img + em {
+  display: block;
+  margin-top: -2rem;
+  margin-bottom: 2.5rem;
+  color: rgba(21, 21, 21, 0.4);
+  font-size: 0.75rem;
+  line-height: 1.6;
+}
+
+/* ================================
+   ARTICLE MOBILE
+================================ */
+
+@media (min-width: 768px) {
+  .article-content {
+    font-size: 1.125rem;
+    line-height: 2.05;
+  }
+
+  .article-content > p:first-child {
+    font-size: 1.2rem;
+  }
+
+  .article-content h2 {
+    font-size: 2.6rem;
+  }
+
+  .article-content h3 {
+    font-size: 1.9rem;
+  }
+
+  .article-content blockquote {
+    font-size: 1.45rem;
+  }
+}
+
+/* ================================
+   MOBILE
+================================ */
+
+@media (max-width: 768px) {
+  .container {
+    width: min(100% - 32px, 1400px);
+  }
+
+  .display-title {
+    font-size: clamp(3.5rem, 18vw, 7rem);
+  }
+
+  .section-title {
+    font-size: clamp(3rem, 15vw, 5rem);
+  }
+
+  .article-content {
+    font-size: 1rem;
+    line-height: 1.9;
+  }
+
+  .article-content > p:first-child {
+    font-size: 1.05rem;
+  }
+
+  .article-content h2 {
+    margin-top: 3rem;
+    font-size: 1.85rem;
+  }
+
+  .article-content h3 {
+    margin-top: 2.5rem;
+    font-size: 1.5rem;
+  }
+
+  .article-content blockquote {
+    margin: 2rem 0;
+    padding-left: 1rem;
+    font-size: 1.15rem;
+  }
+
+  .article-content img {
+    margin: 2rem 0;
+  }
+}
+
+/* ================================
+   REDUCED MOTION
+================================ */
+
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
 }
